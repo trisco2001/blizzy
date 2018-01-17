@@ -1,6 +1,5 @@
-#!/usr/bin/env bash
-
 rm -f blizzy.zip
+rm -rf build/
 
 echo "Copying from Winders"
 mkdir build
@@ -15,3 +14,4 @@ echo "Updating Function..."
 aws lambda update-function-code --function-name item-level --zip-file fileb://blizzy.zip
 
 rm -f blizzy.zip
+rm -rf build/
