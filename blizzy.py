@@ -1,7 +1,7 @@
-from configurations import RequestParameters
+from configurations import RequestParameters, GetItemLevel as GetItemLevelConfiguration
 from interactors import GuildInteractor, ItemInteractor
 from presenters import ItemPresenter, GuildPresenter, IntentPresenter
-from processors import GetItemLevel, Counter
+from processors import GetItemLevelProcessor, CounterProcessor
 from services import RequesterService, ApiService, CharacterIdentityService
 
 request_parameters = RequestParameters()
@@ -11,11 +11,14 @@ item_interactor = ItemInteractor(api_service)
 guild_interactor = GuildInteractor(api_service)
 item_presenter = ItemPresenter(item_interactor, guild_interactor)
 guild_presenter = GuildPresenter(guild_interactor)
-intent_presenter = IntentPresenter()
+intent_configurations = [
+    GetItemLevelConfiguration()
+]
+intent_presenter = IntentPresenter(intent_configurations)
 character_identity_service = CharacterIdentityService(guild_presenter)
 registeredIntentProcessors = [
-    GetItemLevel(character_identity_service, item_presenter),
-    Counter()
+    GetItemLevelProcessor(character_identity_service, item_presenter),
+    CounterProcessor()
 ]
 
 

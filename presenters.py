@@ -54,6 +54,9 @@ CharacterSlotsModel = namedtuple("CharacterSlotsModel", "character guild_name se
 
 
 class IntentPresenter:
+    def __init__(self, intent_configurations):
+        self.intent_configurations = intent_configurations
+        
     def parse(self, intent_object, session_object):
         if "slots" in intent_object:
             keys = map(lambda s: s, intent_object['slots'])
@@ -69,8 +72,11 @@ class IntentPresenter:
         else:
             session_attributes = {}
 
-        if intent_object['name'] == "GetItemLevel":
-            slots["guild_name"] = "Botany Bay"
-            slots["server_name"] = "Executus"
+        for configuration in self.intent_configurations:
+            if intent['name'] == configuration.supportedIntentName():
+                configurations = configuration.slotConfigurations()
+                keys = map(lambda s: s, configurations)
+                values = map(lambda s: configurations[s], keys)
+                session_attributes = dict(zip(keys, values))
 
         return IntentModel(name=intent_object['name'], slots=slots, session_attributes=session_attributes)
