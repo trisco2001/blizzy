@@ -10,6 +10,30 @@ class IntentProcessor:
     def process(self, intent_model): raise NotImplementedError
 
 
+class Counter(IntentProcessor):
+    def supported_intent_name(self):
+        return "CounterIntent"
+
+    def process(self, intent_model):
+        print(intent_model.session_attributes)
+        if "number" not in intent_model.session_attributes:
+            intent_model.session_attributes["number"] = 1
+
+        return {
+            "version": "1.0",
+            "response": {
+                "outputSpeech": {
+                    "type": "PlainText",
+                    "text": "You are up to {0}.".format(intent_model.session_attributes["number"])
+                },
+                "shouldEndSession": False
+            },
+            "sessionAttributes": {
+                "number": intent_model.session_attributes["number"] + 1
+            }
+        }
+
+
 class GetItemLevel(IntentProcessor):
     def __init__(self, character_identity_service, item_presenter):
         self.character_identity_service = character_identity_service
@@ -20,7 +44,7 @@ class GetItemLevel(IntentProcessor):
 
     def process(self, intent_model):
         guild_member = self.character_identity_service.identify_character(
-            intent_model.slots.character, intent_model.slots.guild_name, intent_model.slots.server_name
+            intent_model.slots['character'], intent_model.slots['guild_name'], intent_model.slots['server_name']
         )
         if guild_member is None:
             return {
@@ -29,7 +53,7 @@ class GetItemLevel(IntentProcessor):
                     "outputSpeech": {
                         "type": "PlainText",
                         "text": "Sorry, but I couldn't figure out what character you were talking about. I thought I "
-                                "heard you say {0}".format(intent_model.slots.character)
+                                "heard you say {0}".format(intent_model.slots['character'])
                     },
                     "shouldEndSession": True
                 }
@@ -37,7 +61,7 @@ class GetItemLevel(IntentProcessor):
 
         print("What we're going with: {0} from {1}".format(guild_member.name, guild_member.realm))
         character_item_level = self.item_presenter.get_average_item_level_for_character(server_name=guild_member.realm,
-                                                                                   character_name=guild_member.name)
+                                                                                        character_name=guild_member.name)
         return {
             "version": "1.0",
             "response": {

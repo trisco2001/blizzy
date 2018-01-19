@@ -49,11 +49,28 @@ class GuildPresenter:
         return list(map(lambda c: Character(name=c["name"], level=c["level"], realm=c["realm"]), characters))
 
 
-IntentModel = namedtuple("IntentModel", "name slots")
-SlotsModel = namedtuple("SlotsModel", "character guild_name server_name")
+IntentModel = namedtuple("IntentModel", "name slots session_attributes")
+CharacterSlotsModel = namedtuple("CharacterSlotsModel", "character guild_name server_name")
 
 
 class IntentPresenter:
-    def parse(self, intent_object):
-        slots_model = SlotsModel(character=intent_object['slots']['character']['value'], guild_name="Botany Bay", server_name="Executus")
-        return IntentModel(name=intent_object['name'], slots=slots_model)
+    def parse(self, intent_object, session_object):
+        if "slots" in intent_object:
+            keys = map(lambda s: s, intent_object['slots'])
+            values = map(lambda s: intent_object['slots'][s]['value'], intent_object['slots'])
+            slots = dict(zip(keys, values))
+        else:
+            slots = {}
+
+        if "attributes" in session_object:
+            keys = map(lambda s: s, session_object['attributes'])
+            values = map(lambda s: session_object['attributes'][s], session_object['attributes'])
+            session_attributes = dict(zip(keys, values))
+        else:
+            session_attributes = {}
+
+        if intent_object['name'] == "GetItemLevel":
+            slots["guild_name"] = "Botany Bay"
+            slots["server_name"] = "Executus"
+
+        return IntentModel(name=intent_object['name'], slots=slots, session_attributes=session_attributes)
