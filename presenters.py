@@ -73,10 +73,9 @@ class IntentPresenter:
             session_attributes = {}
 
         for configuration in self.intent_configurations:
-            if intent['name'] == configuration.supportedIntentName():
+            if intent_object['name'] == configuration.supportedIntentName():
                 configurations = configuration.slotConfigurations()
-                keys = map(lambda s: s, configurations)
-                values = map(lambda s: configurations[s], keys)
-                session_attributes = dict(zip(keys, values))
+                slots.update(dict(configurations))
+                print("Slots updated from config: {0}".format(slots))
 
         return IntentModel(name=intent_object['name'], slots=slots, session_attributes=session_attributes)

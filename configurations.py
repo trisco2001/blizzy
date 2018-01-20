@@ -9,19 +9,19 @@ class RequestParameters:
         
 class IntentConfiguration:
     @abstractmethod
-    def supportedIntentName():
+    def supportedIntentName(self):
         raise NotImplementedError
         
     @abstractmethod
-    def slotConfigurations():
+    def slotConfigurations(self):
         return {}
         
 class GetItemLevel(IntentConfiguration):
-    def supportedIntentName():
+    def supportedIntentName(self):
         return "GetItemLevel"
         
-    def slotConfigurations():
+    def slotConfigurations(self):
         return {
-            "guild_name": "Botany Bay"
+            "guild_name": "Botany Bay",
             "server_name": "Executus"
         }

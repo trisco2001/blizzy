@@ -1,7 +1,7 @@
 from configurations import RequestParameters, GetItemLevel as GetItemLevelConfiguration
 from interactors import GuildInteractor, ItemInteractor
 from presenters import ItemPresenter, GuildPresenter, IntentPresenter
-from processors import GetItemLevelProcessor, CounterProcessor
+from processors import GetItemLevel as GetItemLevelProcessor, Counter as CounterProcessor
 from services import RequesterService, ApiService, CharacterIdentityService
 
 request_parameters = RequestParameters()
