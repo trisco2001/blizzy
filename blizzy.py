@@ -1,8 +1,10 @@
+import json
+
 from configurations import RequestParameters, GetItemLevel as GetItemLevelConfiguration
 from interactors import GuildInteractor, ItemInteractor
-from presenters import ItemPresenter, GuildPresenter, IntentPresenter
-from processors import GetItemLevel as GetItemLevelProcessor, Counter as CounterProcessor
-from services import RequesterService, ApiService, CharacterIdentityService
+from presenters import ItemPresenter, GuildPresenter, IntentPresenter, IntentModel
+from processors import GetItemLevel as GetItemLevelProcessor, Counter as CounterProcessor, Yes as YesProcessor, No as NoProcessor
+from services import RequesterService, ApiService, CharacterIdentityService, SerializationService
 
 request_parameters = RequestParameters()
 requester = RequesterService(request_parameters, "https://us.api.battle.net")
@@ -16,20 +18,26 @@ intent_configurations = [
 ]
 intent_presenter = IntentPresenter(intent_configurations)
 character_identity_service = CharacterIdentityService(guild_presenter)
-registeredIntentProcessors = [
-    GetItemLevelProcessor(character_identity_service, item_presenter),
-    CounterProcessor()
+serialization_service = SerializationService()
+get_item_level_processor = GetItemLevelProcessor(character_identity_service, item_presenter)
+counter_processor = CounterProcessor()
+yes_processor = YesProcessor(destination_processors=[counter_processor])
+no_processor = NoProcessor()
+registered_intent_processors = [
+    get_item_level_processor,
+    counter_processor,
+    yes_processor,
+    no_processor
 ]
 
 
 def lambda_handler(event, context):
-    print(event)
     if event['request']['type'] == "IntentRequest":
         intent_model = intent_presenter.parse(intent_object=event['request']['intent'], session_object=event['session'])
 
-        for processor in registeredIntentProcessors:
+        for processor in registered_intent_processors:
             if processor.supported_intent_name() == intent_model.name:
-                return processor.process(intent_model)
+                return serialization_service.response_entity_to_json(processor.process(intent_model))
 
         return {
             "version": "1.0",

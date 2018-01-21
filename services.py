@@ -1,7 +1,9 @@
+import json
 from urllib.parse import urljoin
 import difflib
 import requests
-from presenters import GuildPresenter
+from presenters import ResponseEntity, ResponseModel, SpeechModel, CardModel, RepromptModel, ImageModel, CardModelType, \
+    SpeechModelType
 
 
 class RequesterService:
@@ -63,3 +65,89 @@ class CharacterIdentityService:
             return None
 
         return list(filter(lambda m: m.name == character_name, guild_members))[0]
+
+
+class SerializationService:
+    def response_entity_to_json(self, response_entity: ResponseEntity):
+        if response_entity is None:
+            return None
+
+        result = {
+            "version": response_entity.version,
+            "sessionAttributes": response_entity.session_attributes,
+            "response": self.response_model_to_json(response_model=response_entity.response)
+        }
+
+        return result
+
+    def response_model_to_json(self, response_model: ResponseModel):
+        if response_model is None:
+            return None
+
+        return {
+            "outputSpeech": self.speech_to_json(response_model.output_speech),
+            "card": self.card_to_json(response_model.card),
+            "reprompt": self.reprompt_to_json(response_model.reprompt),
+            "shouldEndSession": response_model.should_end_session
+        }
+
+    def speech_to_json(self, output_speech: SpeechModel):
+        if output_speech is None:
+            return None
+
+        return {
+            "type": self.speech_type_to_json(output_speech.type),
+            "text": output_speech.text
+        }
+
+    def card_to_json(self, card: CardModel):
+        if card is None:
+            return None
+
+        return {
+            "type": self.card_model_type_to_json(card.type),
+            "title": card.title,
+            "content": card.content,
+            "text": card.text,
+            "image": self.image_to_json(card.image)
+        }
+
+    def reprompt_to_json(self, reprompt: RepromptModel):
+        if reprompt is None:
+            return None
+
+        return {
+            "outputSpeech": self.speech_to_json(reprompt.output_speech)
+        }
+
+    def image_to_json(self, image: ImageModel = None):
+        if image is None:
+            return None
+
+        return {
+            "smallImageUrl": image.small_image_url,
+            "largeImageUrl": image.large_image_url
+        }
+
+    def card_model_type_to_json(self, type: CardModelType = None):
+        if type is None:
+            return None
+
+        cases = {
+            CardModelType.SIMPLE: 'Simple',
+            CardModelType.LINK_ACCOUNT: 'LinkAccount',
+            CardModelType.STANDARD: 'Standard'
+        }
+
+        return cases.get(type, None)
+
+    def speech_type_to_json(self, type: SpeechModelType = None):
+        if type is None:
+            return None
+
+        cases = {
+            SpeechModelType.PLAIN_TEXT: 'PlainText',
+            SpeechModelType.SSML: 'SSML'
+        }
+
+        return cases.get(type, None)

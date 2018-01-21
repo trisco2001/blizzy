@@ -1,5 +1,6 @@
 import json
 from collections import namedtuple
+from enum import Enum
 
 CharacterItem = namedtuple("CharacterItem", "name level")
 Character = namedtuple("Character", "name level realm")
@@ -21,7 +22,6 @@ class ItemPresenter:
         items = self.get_items_for_character(character_name, server_name)
         item_levels = list(map(lambda item: item.level, items))
         average_item_level = sum(item_levels) / len(item_levels)
-        print("Character: {0} = {1:0.1f}".format(character_name, average_item_level))
         return CharacterItemLevel(name=character_name, realm=server_name, item_level=average_item_level)
 
     def get_average_item_level_for_guild(self, guild_name, server_name, include_top=0):
@@ -33,8 +33,6 @@ class ItemPresenter:
         character_item_levels = sorted(character_item_levels, key=lambda cil: cil.item_level, reverse=True)
         if include_top > 0:
             character_item_levels = character_item_levels[0:include_top]
-            print("Only counting the top {0} members:".format(include_top))
-            print(json.dumps(character_item_levels, indent=2))
 
         item_levels = list(map(lambda cil: cil.item_level, character_item_levels))
         return sum(item_levels) / len(item_levels)
@@ -76,6 +74,67 @@ class IntentPresenter:
             if intent_object['name'] == configuration.supportedIntentName():
                 configurations = configuration.slotConfigurations()
                 slots.update(dict(configurations))
-                print("Slots updated from config: {0}".format(slots))
 
         return IntentModel(name=intent_object['name'], slots=slots, session_attributes=session_attributes)
+
+
+class ImageModel:
+    def __init__(self, small_image_url: str, large_image_url: str):
+        self.small_image_url = small_image_url
+        self.large_image_url = large_image_url
+
+
+class CardModelType(Enum):
+    SIMPLE = 0
+    STANDARD = 1
+    LINK_ACCOUNT = 2
+
+
+class CardModel:
+    def __init__(self, type: CardModelType, title: str = None, content: str = None, text: str = None, image: ImageModel = None):
+        self.type = type
+        self.title = title
+        self.content = content
+        self.text = text
+        self.image = image
+
+
+class SpeechModelType(Enum):
+    PLAIN_TEXT = 0
+    SSML = 1
+
+
+class SpeechModel:
+    def __init__(self, type: SpeechModelType, text: str):
+        self.type = type
+        self.text = text
+
+
+class RepromptModel:
+    def __init__(self, output_speech: SpeechModel):
+        self.output_speech = output_speech
+
+
+class ResponseModel:
+    def __init__(self, output_speech: SpeechModel = None, card: CardModel = None, reprompt: RepromptModel = None, should_end_session: bool = True):
+        self.output_speech = output_speech
+        self.card = card
+        self.reprompt = reprompt
+        self.should_end_session = should_end_session
+
+
+class ResponseEntity:
+    def __init__(self, version: str, session_attributes: dict = None, response: ResponseModel = None):
+        self.version = version
+        self.session_attributes = session_attributes
+        self.response = response
+
+
+class SimpleError(ResponseEntity):
+    def __init__(self, error_message):
+        error_speech = SpeechModel(
+            type=SpeechModelType.PLAIN_TEXT,
+            text=error_message
+        )
+        response_model = ResponseModel(output_speech=error_speech)
+        ResponseEntity.__init__(self, version="1.0", session_attributes=None, response=response_model)
