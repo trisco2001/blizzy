@@ -21,8 +21,8 @@ character_identity_service = CharacterIdentityService(guild_presenter)
 serialization_service = SerializationService()
 get_item_level_processor = GetItemLevelProcessor(character_identity_service, item_presenter)
 counter_processor = CounterProcessor()
-yes_processor = YesProcessor(destination_processors=[counter_processor])
-no_processor = NoProcessor()
+yes_processor = YesProcessor(destination_processors=[counter_processor, get_item_level_processor])
+no_processor = NoProcessor(destination_processors=[counter_processor, get_item_level_processor])
 registered_intent_processors = [
     get_item_level_processor,
     counter_processor,

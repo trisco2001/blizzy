@@ -2,7 +2,7 @@ import random
 from abc import abstractmethod
 
 from presenters import ResponseEntity, ResponseModel, SpeechModel, SpeechModelType, CardModel, CardModelType, \
-    RepromptModel, SimpleError
+    RepromptModel, SimpleError, IntentModel, Character
 
 
 class IntentProcessor:
@@ -11,7 +11,7 @@ class IntentProcessor:
     def supported_intent_name(self): raise NotImplementedError
 
     @abstractmethod
-    def process(self, intent_model): raise NotImplementedError
+    def process(self, intent_model: IntentModel, source_intent: str = None): raise NotImplementedError
 
 
 class Counter(IntentProcessor):
@@ -26,9 +26,12 @@ class Counter(IntentProcessor):
     def supported_intent_name(self):
         return "CounterIntent"
 
-    def process(self, intent_model):
+    def process(self, intent_model, source_intent: str = None):
         if "number" not in intent_model.session_attributes:
             intent_model.session_attributes["number"] = 0
+
+        if source_intent == "NoIntent":
+            return SimpleError(error_message="You finished at {0}.".format(intent_model.session_attributes["number"]))
 
         intent_model.session_attributes["number"] = intent_model.session_attributes["number"] + 1
         intent_model.session_attributes["destinationIntent"] = "CounterIntent"
@@ -61,14 +64,14 @@ class Yes(IntentProcessor):
     def supported_intent_name(self):
         return "YesIntent"
 
-    def process(self, intent_model):
+    def process(self, intent_model, source_intent: str = None):
         if "destinationIntent" not in intent_model.session_attributes:
             return SimpleError(error_message="The destination intent was not found in the session attributes.")
 
         destination_intent = intent_model.session_attributes["destinationIntent"]
         for processor in self.destination_processors:
             if processor.supported_intent_name() == destination_intent:
-                return processor.process(intent_model)
+                return processor.process(intent_model, source_intent="YesIntent")
 
         return SimpleError(
             "The destination intent {0} was not supported in the Yes Intent Processor.".format(destination_intent)
@@ -76,29 +79,24 @@ class Yes(IntentProcessor):
 
 
 class No(IntentProcessor):
+    def __init__(self, destination_processors: list):
+        self.destination_processors = destination_processors
 
     def supported_intent_name(self):
         return "NoIntent"
 
-    def process(self, intent_model):
-        if "number" not in intent_model.session_attributes:
-            intent_model.session_attributes["number"] = 1
+    def process(self, intent_model, source_intent: str = None):
+        if "destinationIntent" not in intent_model.session_attributes:
+            return SimpleError(error_message="The destination intent was not found in the session attributes.")
 
-        version = "1.0"
-        response_text = "You finished at {0}.".format(intent_model.session_attributes["number"])
-        output_speech = SpeechModel(
-            SpeechModelType.PLAIN_TEXT,
-            text=response_text
+        destination_intent = intent_model.session_attributes["destinationIntent"]
+        for processor in self.destination_processors:
+            if processor.supported_intent_name() == destination_intent:
+                return processor.process(intent_model, source_intent="NoIntent")
+
+        return SimpleError(
+            "The destination intent {0} was not supported in the No Intent Processor.".format(destination_intent)
         )
-        card = CardModel(type=CardModelType.SIMPLE, title="Counter Intent", content=response_text)
-
-        response = ResponseModel(output_speech=output_speech, card=card, reprompt=None, should_end_session=True)
-
-        response_entity = ResponseEntity(version=version,
-                                         session_attributes=None,
-                                         response=response)
-
-        return response_entity
 
 
 class GetItemLevel(IntentProcessor):
@@ -109,24 +107,43 @@ class GetItemLevel(IntentProcessor):
     def supported_intent_name(self):
         return "GetItemLevel"
 
-    def process(self, intent_model):
-        guild_member = self.character_identity_service.identify_character(
-            intent_model.slots['character'], intent_model.slots['guild_name'], intent_model.slots['server_name']
-        )
-        if guild_member is None:
+    def process(self, intent_model, source_intent: str = None):
+        if source_intent == "NoIntent":
             return SimpleError(
-                error_message="Sorry, but I couldn't figure out what character you were talking about. I thought "
-                              "I heard you say {0}".format(intent_model.slots['character'])
+                error_message="Great! Goodbye."
             )
 
+        if "otherCharacters" in intent_model.session_attributes:
+            potential_characters = list(map(lambda entry: Character(name=entry[0], level=entry[1], realm=entry[2]), intent_model.session_attributes["otherCharacters"]))
+
+            print("potential characters found in session!")
+            print(potential_characters)
+        else:
+            if intent_model.slots['character'] == "":
+                return SimpleError(
+                    error_message="For some reason, I couldn't hear what character you specified. Try again. Sorry."
+                )
+            potential_characters = self.character_identity_service.identify_potential_characters(
+                intent_model.slots['character'], intent_model.slots['guild_name'], intent_model.slots['server_name']
+            )
+
+        if len(potential_characters) == 0:
+            return SimpleError(
+                error_message="Sorry, but I couldn't figure out what character you were talking about. "
+                              "Try enunciating or saying the name differently, but blame me for my failure."
+            )
+
+        guild_member = potential_characters[0]
         character_item_level = self.item_presenter.get_average_item_level_for_character(server_name=guild_member.realm,
                                                                                         character_name=guild_member.name)
-
-        speech = SpeechModel(
-                type=SpeechModelType.PLAIN_TEXT,
-                text="{0}, from realm of {1}, has an average equipped item level of {2:.1f}".format(
-                        guild_member.name, guild_member.realm, character_item_level.item_level)
-            )
-        response_model = ResponseModel(output_speech=speech)
-        response_entity = ResponseEntity(version="1.0", response=response_model)
-        return response_entity
+        output_speech = SpeechModel(
+            type=SpeechModelType.PLAIN_TEXT,
+            text="{0}, from realm of {1}, has an average equipped item level of {2:.1f}. Did you mean another character?".format(
+                guild_member.name, guild_member.realm, character_item_level.item_level)
+        )
+        session_attributes = {
+            "otherCharacters": potential_characters[1:],
+            "destinationIntent": "GetItemLevel"
+        }
+        response_model = ResponseModel(output_speech=output_speech, card=None, reprompt=None, should_end_session=False)
+        return ResponseEntity(version="1.0", session_attributes=session_attributes, response=response_model)

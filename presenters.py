@@ -54,11 +54,18 @@ CharacterSlotsModel = namedtuple("CharacterSlotsModel", "character guild_name se
 class IntentPresenter:
     def __init__(self, intent_configurations):
         self.intent_configurations = intent_configurations
+
+    def get_value(self, slotName, slots):
+        if "value" not in slots[slotName]:
+            return ""
+
+        return slots[slotName]["value"]
         
     def parse(self, intent_object, session_object):
         if "slots" in intent_object:
+            print(intent_object)
             keys = map(lambda s: s, intent_object['slots'])
-            values = map(lambda s: intent_object['slots'][s]['value'], intent_object['slots'])
+            values = map(lambda s: self.get_value(s, intent_object['slots']), intent_object['slots'])
             slots = dict(zip(keys, values))
         else:
             slots = {}
