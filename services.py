@@ -18,7 +18,7 @@ class RequesterService:
         params["locale"] = self.request_parameters.locale
         params["apikey"] = self.request_parameters.key
         response = requests.get(url=url, params=params)
-        return response
+        return response.json()
 
 
 class ApiService:
@@ -30,14 +30,14 @@ class ApiService:
             resource="/wow/character/{0}/{1}".format(server_name, character_name),
             params={"fields": "items"}
         )
-        return response.json()["items"]
+        return response["items"]
 
     def get_guild_members(self, guild_name: str, server_name: str):
         response = self.requester_service.request(
             resource="/wow/guild/{0}/{1}".format(server_name, guild_name),
             params={"fields": "members"}
         )
-        return response.json()["members"]
+        return response["members"]
 
 
 class CharacterIdentityService:
