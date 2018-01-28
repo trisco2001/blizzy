@@ -1,5 +1,3 @@
-import json
-
 from configurations import RequestParameters, GetItemLevel as GetItemLevelConfiguration
 from interactors import GuildInteractor, ItemInteractor
 from presenters import ItemPresenter, GuildPresenter, IntentPresenter, IntentModel

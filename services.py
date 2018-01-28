@@ -1,47 +1,51 @@
-import json
 from urllib.parse import urljoin
 import difflib
 import requests
+from configurations import RequestParameters
 from presenters import ResponseEntity, ResponseModel, SpeechModel, CardModel, RepromptModel, ImageModel, CardModelType, \
-    SpeechModelType
+    SpeechModelType, GuildPresenter
 
 
 class RequesterService:
-    def __init__(self, apiKey, baseUrl):
-        self.apiKey = apiKey
-        self.baseUrl = baseUrl
+    def __init__(self, request_parameters: RequestParameters, base_url: str):
+        self.request_parameters = request_parameters
+        self.base_url = base_url
 
-    def request(self, resource, params=None):
+    def request(self, resource: str, params: dict = None):
         if params is None:
             params = {}
-        url = urljoin(base=self.baseUrl, url=resource)
-        params["locale"] = self.apiKey.locale
-        params["apikey"] = self.apiKey.key
+        url = urljoin(base=self.base_url, url=resource)
+        params["locale"] = self.request_parameters.locale
+        params["apikey"] = self.request_parameters.key
         response = requests.get(url=url, params=params)
         return response
 
 
 class ApiService:
-    def __init__(self, requester):
-        self.requester = requester
+    def __init__(self, requester_service: RequesterService):
+        self.requester_service = requester_service
 
-    def get_character_items(self, character_name, server_name):
-        response = self.requester.request("/wow/character/{0}/{1}".format(server_name, character_name),
-                                          params={"fields": "items"})
+    def get_character_items(self, character_name: str, server_name: str):
+        response = self.requester_service.request(
+            resource="/wow/character/{0}/{1}".format(server_name, character_name),
+            params={"fields": "items"}
+        )
         return response.json()["items"]
 
-    def get_guild_members(self, guild_name, server_name):
-        response = self.requester.request("/wow/guild/{0}/{1}".format(server_name, guild_name),
-                                          params={"fields": "members"})
+    def get_guild_members(self, guild_name: str, server_name: str):
+        response = self.requester_service.request(
+            resource="/wow/guild/{0}/{1}".format(server_name, guild_name),
+            params={"fields": "members"}
+        )
         return response.json()["members"]
 
 
 class CharacterIdentityService:
 
-    def __init__(self, guild_presenter):
+    def __init__(self, guild_presenter: GuildPresenter):
         self.guild_presenter = guild_presenter
 
-    def identify_potential_characters(self, raw_name, guild_name, server_name):
+    def identify_potential_characters(self, raw_name: str, guild_name: str, server_name: str):
         guild_members = self.guild_presenter.get_guild_members(guild_name, server_name, max_level_only=True)
         guild_member_names = map(lambda m: m.name, guild_members)
         print("What we heard: {0}".format(raw_name))
