@@ -1,0 +1,2 @@
+[run]
+omit = tests/*,urllib3/*,requests/*,idna/*,chardet/*,*/PyCharm*,certifi/*
