@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86b9ba0f-5d21-4402-ab20-e76ad5b19526" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/tests/services/test_apiService.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/tests/services/test_requesterService.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/tests/__init__.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/tests/interactors/__init__.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/tests/interactors/test_guildInteractor.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/tests/interactors/test_itemInteractor.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" />
-      <change beforePath="$PROJECT_DIR$/Test Results - Unittests_for_test_serializationService_TestSerializationService_test_response_entity_to_json.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/services.py" afterPath="$PROJECT_DIR$/services.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,33 +19,11 @@
   <component name="ExportTestResults" outputFolder="$PROJECT_DIR$" openResultsInEditor="true" userTempatePath="" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="blizzy.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blizzy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#87#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="configurations.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/configurations.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="services.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="176">
-              <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+              <caret line="27" column="8" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -53,7 +31,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_apiService.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test_apiService.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/services/test_apiService.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
@@ -75,16 +53,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/requests/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="878" column="18" lean-forward="false" selection-start-line="878" selection-start-column="18" selection-end-line="878" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="test_requesterService.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/services/test_requesterService.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -93,6 +61,38 @@
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="interactors.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/interactors.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="461">
+              <caret line="30" column="17" lean-forward="false" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_itemInteractor.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/interactors/test_itemInteractor.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="28" lean-forward="false" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_guildInteractor.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/interactors/test_guildInteractor.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="29" selection-end-line="1" selection-end-column="38" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -116,18 +116,6 @@
               <caret line="56" column="9" lean-forward="false" selection-start-line="56" selection-start-column="9" selection-end-line="56" selection-end-column="9" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="presenters.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/presenters.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="44" column="25" lean-forward="false" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -171,6 +159,9 @@
         <option value="$PROJECT_DIR$/tests/services/test_requesterService.py" />
         <option value="$PROJECT_DIR$/test_apiService.py" />
         <option value="$PROJECT_DIR$/tests/services/test_apiService.py" />
+        <option value="$PROJECT_DIR$/tests/interactors/test_guildInteractor.py" />
+        <option value="$PROJECT_DIR$/test_itemInteractor.py" />
+        <option value="$PROJECT_DIR$/tests/interactors/test_itemInteractor.py" />
       </list>
     </option>
   </component>
@@ -214,7 +205,7 @@
               <item name="blizzy" type="b2602c69:ProjectViewProjectNode" />
               <item name="blizzy" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="interactors" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -226,11 +217,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests/interactors" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Tristan/source/repos/blizzy/processors.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Tristan\source\repos\blizzy\tests\interactors" />
       <recent name="C:\Users\Tristan\source\repos\blizzy\tests\services" />
     </key>
   </component>
@@ -323,40 +315,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Py_Test - 2018.01.28 at 14h 00m 42s.xml">
-      <configuration name="Py.Test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Py_Test - 2018.01.28 at 14h 01m 38s.xml">
-      <configuration name="Py.Test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Py_Test - 2018.01.28 at 14h 03m 07s.xml">
-      <configuration name="Py.Test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Py_Test - 2018.01.28 at 14h 04m 04s.xml">
-      <configuration name="Py.Test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Py_Test - 2018.01.28 at 14h 05m 01s.xml">
-      <configuration name="Py.Test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Py_Test - 2018.01.28 at 14h 05m 10s.xml">
-      <configuration name="Py.Test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Py_Test - 2018.01.28 at 15h 04m 47s.xml">
-      <configuration name="Py.Test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Py_Test - 2018.01.28 at 15h 05m 22s.xml">
-      <configuration name="Py.Test" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Py_Test - 2018.01.28 at 15h 06m 08s.xml">
-      <configuration name="Py.Test" configurationId="tests" />
-    </history-entry>
     <history-entry file="Py_Test - 2018.01.28 at 15h 06m 44s.xml">
+      <configuration name="Py.Test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Py_Test - 2018.01.28 at 19h 36m 21s.xml">
+      <configuration name="Py.Test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Py_Test - 2018.01.28 at 21h 29m 57s.xml">
+      <configuration name="Py.Test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Py_Test - 2018.01.28 at 21h 32m 21s.xml">
+      <configuration name="Py.Test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Py_Test - 2018.01.28 at 21h 33m 11s.xml">
+      <configuration name="Py.Test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Py_Test - 2018.01.28 at 21h 33m 20s.xml">
+      <configuration name="Py.Test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Py_Test - 2018.01.28 at 21h 41m 11s.xml">
+      <configuration name="Py.Test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Py_Test - 2018.01.28 at 21h 44m 52s.xml">
+      <configuration name="Py.Test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Py_Test - 2018.01.28 at 21h 46m 21s.xml">
+      <configuration name="Py.Test" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Py_Test - 2018.01.28 at 21h 47m 36s.xml">
       <configuration name="Py.Test" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16754478" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -382,7 +373,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -392,7 +383,7 @@
         <state relative-caret-position="306">
           <caret line="24" column="17" lean-forward="true" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
           <folding>
-            <element signature="e#0#87#0" expanded="true" />
+            <element signature="e#0#87#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -452,7 +443,7 @@
         <state relative-caret-position="969">
           <caret line="59" column="21" lean-forward="true" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -472,7 +463,7 @@
         <state relative-caret-position="238">
           <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
-            <element signature="e#0#87#0" expanded="true" />
+            <element signature="e#0#87#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -526,7 +517,7 @@
         <state relative-caret-position="952">
           <caret line="57" column="58" lean-forward="true" selection-start-line="57" selection-start-column="58" selection-end-line="57" selection-end-column="58" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -544,7 +535,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#87#0" expanded="true" />
+            <element signature="e#0#87#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -587,7 +578,7 @@
         <state relative-caret-position="782">
           <caret line="47" column="100" lean-forward="false" selection-start-line="47" selection-start-column="100" selection-end-line="47" selection-end-column="100" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -597,7 +588,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#87#0" expanded="true" />
+            <element signature="e#0#87#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -607,7 +598,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#87#0" expanded="true" />
+            <element signature="e#0#87#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -617,7 +608,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#87#0" expanded="true" />
+            <element signature="e#0#87#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -627,7 +618,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#87#0" expanded="true" />
+            <element signature="e#0#87#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -657,14 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/interactors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -700,7 +683,7 @@
         <state relative-caret-position="306">
           <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
           <folding>
-            <element signature="e#0#87#0" expanded="true" />
+            <element signature="e#0#87#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -718,7 +701,7 @@
         <state relative-caret-position="238">
           <caret line="44" column="25" lean-forward="false" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="25" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -777,20 +760,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/services/test_apiService.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/interactors/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/interactors/test_guildInteractor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="29" selection-end-line="1" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/services.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
-          <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+          <caret line="27" column="8" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/services/test_apiService.py">
+    <entry file="file://$PROJECT_DIR$/interactors.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="461">
+          <caret line="30" column="17" lean-forward="false" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/interactors/test_itemInteractor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="28" lean-forward="false" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
